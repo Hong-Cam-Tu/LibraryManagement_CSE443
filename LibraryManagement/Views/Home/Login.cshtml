@@ -1,20 +1,38 @@
 ﻿@model Login
-<center>
-    <h2>Đăng nhập</h2>
-    <p>Chào Mừng. Vui lòng điền đầy đủ thông tin của bạn.</p>
-</center>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryManagement</title>
 
-<form method="post" asp-action="Login">
-    <div class="mb-3">
-        <label asp-for="Email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+<body id="login-page">
+    <div class="center" >
+        <div class="container">
+            <div class="text">
+                <center>
+                    Đăng nhập
+                </center>
+            </div>
+
+            <form method="post" asp-action="Login">
+                <div class="mb-3 data">
+                    <label asp-for="Email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="mb-3 data">
+                    <label asp-for="Password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
+                </div>
+                <div class="d-grid gap-2 btn">
+                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                </div>
+                <div class="signup-link">
+                    Chưa có tài khoản? <a href="/Home/Register">Đăng ký ngay</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="Email">Email</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
-    </div>
-    <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">Đăng nhập</button>
-        <button class="btn btn-primary" type="submit">Kích hoạt tài khoản</button>
-    </div>
-</form>
+</body>
