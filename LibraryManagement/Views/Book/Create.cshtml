@@ -1,0 +1,60 @@
+﻿@model Books
+@{
+    Layout = "_AdminLayout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryManagement</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+
+
+<center>
+    <h2>Thêm mới thông tin sách</h2>
+</center>
+
+<form asp-action="Create" method="post" id="create-form">
+    <input type="hidden" asp-for="BookId" />
+    <div class="mb-3">
+        <b>
+            <label asp-for="Title" class="control-label" style="padding-bottom: 5px">Tên sách</label>
+        </b>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="Description" class="control-label" style="padding-bottom: 5px">Mô tả</label>
+        </b>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="AuthorId" class="control-label" style="padding-bottom: 5px">Tác giả</label>
+        </b>
+        <select asp-for="AuthorId" asp-items="ViewBag.Authors" class="form-control"></select>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="CategoryId" class="control-label" style="padding-bottom: 5px">Thể loại</label>
+        </b>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="PublishedYear" class="control-label" style="padding-bottom: 5px">Năm phát hành</label>
+        </b>
+        <input asp-for="PublishedYear" type="date" class="form-control" />
+        <span asp-validation-for="PublishedYear" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" asp-action="Create">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

@@ -1,0 +1,45 @@
+﻿
+@model Categories
+@{
+    Layout = "_AdminLayout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryManagement</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+
+<center>
+    <h2>Thêm mới thể loại sách</h2>
+</center>
+
+<form asp-action="Create" method="post" id="create-form">
+    <div class="mb-3">
+        <b>
+            <label asp-for="Name" class="control-label" style="padding-bottom: 5px">Tên thể loại</label>
+        </b>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="Description" class="control-label" style="padding-bottom: 5px">Mô tả</label>
+        </b>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>   
+    <div class="mb-3 checkbox form-check">
+        <input class="form-check-input" asp-for="IsActive" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+        <b>
+            <label asp-for="IsActive" class="control-label" style="padding-bottom: 5px"></label>
+        </b>
+    </div>
+    <button type="submit" class="btn btn-primary" asp-action="Create">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+

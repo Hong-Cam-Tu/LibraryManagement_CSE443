@@ -1,0 +1,20 @@
+﻿@model Login
+<center>
+    <h2>Đăng nhập</h2>
+    <p>Chào Mừng. Vui lòng điền đầy đủ thông tin của bạn.</p>
+</center>
+
+<form method="post" asp-action="Login">
+    <div class="mb-3">
+        <label asp-for="Email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email">Email</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit">Đăng nhập</button>
+        <button class="btn btn-primary" type="submit">Kích hoạt tài khoản</button>
+    </div>
+</form>

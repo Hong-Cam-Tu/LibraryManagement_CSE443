@@ -1,0 +1,67 @@
+﻿@model Authors
+@{
+    Layout = "_AdminLayout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryManagement</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+
+
+<center>
+    <h2>Chỉnh sửa thông tin tác giả</h2>
+</center>
+
+<form asp-action="Edit" method="post" id="edit-form">
+    <input type="hidden" asp-for="AuthorId" />
+    <div class="mb-3">
+        <b>
+            <label asp-for="FirstName" class="control-label" style="padding-bottom: 5px">Tên</label>
+        </b>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="LastName" class="control-label" style="padding-bottom: 5px">Họ và tên đệm</label>
+        </b>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="DateOfBirth" class="control-label" style="padding-bottom: 5px">Năm sinh</label>
+        </b>
+        <input asp-for="DateOfBirth" type="date" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="Biography" class="control-label" style="padding-bottom: 5px">Tiểu sử</label>
+        </b>
+        <input asp-for="Biography" class="form-control" />
+        <span asp-validation-for="Biography" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="Nationality" class="control-label" style="padding-bottom: 5px">Quốc tịch</label>
+        </b>
+        <input asp-for="Nationality" class="form-control" />
+        <span asp-validation-for="Nationality" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <b>
+            <label asp-for="Email" class="control-label" style="padding-bottom: 5px">Email</label>
+        </b>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" asp-action="Edit">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
