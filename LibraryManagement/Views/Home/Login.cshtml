@@ -2,14 +2,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LibraryManagement</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
 </head>
-<body id="login-page">
-    <div class="center" >
+<body>
+    <div class="center" id="login-page">
         <div class="container">
             <div class="text">
                 <center>
@@ -20,15 +19,13 @@
             <form method="post" asp-action="Login">
                 <div class="mb-3 data">
                     <label asp-for="Email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="mb-3 data">
                     <label asp-for="Password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
                 </div>
-                <div class="d-grid gap-2 btn">
-                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
-                </div>
+                    <button class="btn btn-success" type="submit">Đăng nhập</button>
                 <div class="signup-link">
                     Chưa có tài khoản? <a href="/Home/Register">Đăng ký ngay</a>
                 </div>
