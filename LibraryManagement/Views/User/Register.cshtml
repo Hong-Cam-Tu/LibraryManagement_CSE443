@@ -1,4 +1,4 @@
-﻿@model Register
+﻿@model Users
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,15 +17,15 @@
             </div>
             <form method="post" asp-action="Register">
                 <div class="mb-3 data">
+                    <label asp-for="UserName">Tên đăng nhập</label>
+                    <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                </div>
+                <div class="mb-3 data">
                     <label asp-for="Email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="mb-3 data">
                     <label asp-for="Password">Mật khẩu</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
-                </div>
-                <div class="mb-3 data">
-                    <label asp-for="ConfirmPassword">Xác nhận mật khẩu</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
                 </div>
                 <button class="btn btn-success" type="submit">Đăng ký</button>

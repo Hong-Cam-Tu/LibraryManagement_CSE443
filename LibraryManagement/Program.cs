@@ -51,6 +51,15 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 });
+
+builder.Services.AddDistributedMemoryCache(); // Required for session state
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout duration
+    options.Cookie.HttpOnly = true; // Prevent access to cookies from client-side scripts
+    options.Cookie.IsEssential = true; // Ensure cookies are included even if user opts out
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,6 +74,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession(); // Enable session middleware
 
 app.UseAuthentication();
 
@@ -73,6 +83,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}");
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
