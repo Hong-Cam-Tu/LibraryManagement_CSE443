@@ -10,15 +10,14 @@ namespace LibraryManagement.Models
         [StringLength(50)]
         public string? Fullname { get; set; }
 
-        [Required]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [MaxLength(64)]
         public string Password { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [MaxLength(255)]
         [EmailAddress]
         public string Email { get; set; }
         public int? RoleId { get; set; }
