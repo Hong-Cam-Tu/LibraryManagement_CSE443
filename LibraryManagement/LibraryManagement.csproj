@@ -25,6 +25,7 @@
   <ItemGroup>
     <Folder Include="Repository\Interfaces\" />
     <Folder Include="wwwroot\book_pdf\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
   <ItemGroup>

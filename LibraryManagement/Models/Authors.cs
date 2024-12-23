@@ -24,7 +24,7 @@ namespace LibraryManagement.Models
         public string? Email { get; set; }
 
         public DateTime? CreatedDate { get; set; }
-        public string? Avatar { get; set; }
+        public string? PdfFilePath { get; set; }
 
         // Navigation property for related Books
         /// one-to-many

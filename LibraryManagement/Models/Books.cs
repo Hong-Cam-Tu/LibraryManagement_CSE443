@@ -19,7 +19,7 @@ namespace LibraryManagement.Models
         public DateTime? CreatedDate { get; set; }
         public string? Avatar { get; set; }
         public string? Pdf { get; set; }
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         // Navigation properties for Category, Author, and related Loans
         /// one-to-one

@@ -61,6 +61,18 @@
         <input asp-for="Email" type="email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label for="PdfFile">Tệp PDF</label>
+        <!-- Hiển thị đường dẫn hoặc nút tải xuống tệp PDF nếu có -->
+        @if (!string.IsNullOrEmpty(Model.PdfFilePath))
+        {
+            <div class="mb-3">
+                <a href="@Model.PdfFilePath" target="_blank" class="btn btn-link">Xem tệp PDF hiện tại</a>
+            </div>
+        }
+        <input type="file" class="form-control" id="PdfFile" name="PdfFile" accept="application/pdf" />
+        <small class="form-text text-muted">Nếu không chọn tệp mới, tệp hiện tại sẽ được giữ nguyên.</small>
+    </div>
 
     <button type="submit" class="btn btn-primary" asp-action="Edit">Lưu</button>
     <a asp-action="Index" class="btn btn-secondary">Hủy</a>

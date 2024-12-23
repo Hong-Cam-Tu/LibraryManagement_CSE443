@@ -64,7 +64,7 @@ namespace LibraryManagement.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Books book)
+        public IActionResult Create([Bind("BookId,Title, Description,AuthorId,CategoryId, PublishedYear")] Books book)
         {
             if (ModelState.IsValid)
             {

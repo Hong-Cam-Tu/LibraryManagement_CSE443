@@ -28,6 +28,7 @@
             <th>Quốc tịch</th>
             <th>Email</th>
             <th>Thời gian tạo mới</th>
+            <th>Avatar</th>
             <th></th>
         </tr>
     </thead>
@@ -43,6 +44,12 @@
                 <td>@author.Nationality</td>
                 <td>@author.Email</td>
                 <td>@author.CreatedDate?.ToString("dd-MM-yyyy")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(author.PdfFilePath))
+                    {
+                        <a asp-controller="Author" asp-action="ReadPdf" asp-route-id="@author.AuthorId" target="_blank">View PDF</a>
+                    }
+                </td>
                 <td>
                     <div>
                         <a asp-action="Edit" asp-route-id="@author.AuthorId" class="btn">
