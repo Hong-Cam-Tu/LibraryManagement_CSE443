@@ -1,7 +1,13 @@
 ﻿using LibraryManagement.data;
 using LibraryManagement.Models.Context;
+using LibraryManagement.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using static System.Formats.Asn1.AsnWriter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +50,45 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<LibraryDbContext>()
     .AddDefaultTokenProviders();
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            // Check if the token is in the cookie
+            var token = context.Request.Cookies["jwt"];
+            {
+                context.Token = token;
+            }
+            return Task.CompletedTask;
+        },
+
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+            context.Response.Redirect("/User/Login");
+            return Task.CompletedTask;
+        },
+
+    };
+});
 // Cấu hình cookie cho xác thực
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -68,6 +113,14 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await SeedData.Initialize(services, userManager, roleManager);
 }
 
 app.UseHttpsRedirection();
