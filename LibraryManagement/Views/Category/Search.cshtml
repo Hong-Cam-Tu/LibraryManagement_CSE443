@@ -1,0 +1,61 @@
+﻿@using LibraryManagement.ViewModel
+
+@model SearchViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<h2>Tìm kiếm</h2>
+
+<!-- Form nhập từ khóa tìm kiếm -->
+<form asp-action="Search" method="post">
+    <div class="form-group">
+        <label for="Keyword">Từ khóa:</label>
+        <input type="text" id="Keyword" name="Keyword" class="form-control" placeholder="Nhập tên sách, tên tác giả, thể loại..." />
+    </div>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+</form>
+
+<hr />
+
+<!-- Kết quả tìm kiếm -->
+@if (Model.Books != null && Model.Books.Any())
+{
+    <h3>Kết quả sách:</h3>
+    <ul>
+        @foreach (var book in Model.Books)
+        {
+            <li>@book.Title - @book.Description</li>
+        }
+    </ul>
+}
+
+@if (Model.Authors != null && Model.Authors.Any())
+{
+    <h3>Kết quả tác giả:</h3>
+    <ul>
+        @foreach (var author in Model.Authors)
+        {
+            <li>@author.FirstName @author.LastName</li>
+        }
+    </ul>
+}
+
+@if (Model.Categories != null && Model.Categories.Any())
+{
+    <h3>Kết quả thể loại:</h3>
+    <ul>
+        @foreach (var category in Model.Categories)
+        {
+            <li>@category.Name</li>
+        }
+    </ul>
+}

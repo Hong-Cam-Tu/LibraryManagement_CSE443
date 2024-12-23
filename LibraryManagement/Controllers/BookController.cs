@@ -6,6 +6,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Runtime.CompilerServices;
+using LibraryManagement.ViewModel;
 namespace LibraryManagement.Controllers
 {
     public class BookController : Controller
@@ -53,12 +54,12 @@ namespace LibraryManagement.Controllers
         [HttpGet]
         public IActionResult Create()
         {
- 
-           ViewBag.Authors = new SelectList(_authorContext.Authors.Select(a => new { AuthorId = a.AuthorId, FullName = a.FirstName + " " + a.LastName })
-            .ToList(),
-            "AuthorId",
-            "FullName"
-            );
+
+            ViewBag.Authors = new SelectList(_authorContext.Authors.Select(a => new { AuthorId = a.AuthorId, FullName = a.FirstName + " " + a.LastName })
+             .ToList(),
+             "AuthorId",
+             "FullName"
+             );
             ViewBag.Categories = new SelectList(_categoryContext.Categories.ToList(), "CategoryId", "Name");
 
             return View();
@@ -100,7 +101,7 @@ namespace LibraryManagement.Controllers
              .ToList(),
              "AuthorId",
              "FullName"
-             ); 
+             );
             ViewBag.Categories = new SelectList(_categoryContext.Categories.ToList(), "CategoryId", "Name");
             return View(book);
         }
@@ -137,6 +138,23 @@ namespace LibraryManagement.Controllers
             _Bookcontext.SaveChanges();
             TempData["SuccessMessage"] = "Deleted successfully!";
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View(new SearchViewModel());
+        }
+        [HttpPost]
+        public IActionResult Search(SearchViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Keyword))
+            {
+                // Tìm kiếm sách theo tên hoặc mô tả
+                model.Books = _Bookcontext.Books
+                    .Where(b => b.Title.Contains(model.Keyword) || b.Description.Contains(model.Keyword))
+                    .ToList();
+            }
+            return View(model);
         }
     }
 }

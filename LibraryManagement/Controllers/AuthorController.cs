@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Models.Context;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -140,6 +141,22 @@ namespace LibraryManagement.Controllers
             ViewBag.PdfUrl = pdf.PdfFilePath;
             return View();
         }
-
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View(new SearchViewModel());
+        }
+        [HttpPost]
+        public IActionResult Search(SearchViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Keyword))
+            {
+                // Tìm kiếm sách theo tên hoặc mô tả
+                model.Authors = _Authorcontext.Authors
+                    .Where(a => a.FirstName.Contains(model.Keyword) || a.LastName.Contains(model.Keyword))
+                    .ToList();
+            }
+            return View(model);
+        }
     }
 }
