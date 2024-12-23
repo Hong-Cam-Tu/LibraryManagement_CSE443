@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Models.Context;
+using LibraryManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ namespace LibraryManagement.Controllers
         }
         public IActionResult Index()
         {
-            
+
             var list = _Categorycontext.Categories.ToList();
             return View(list);
         }
@@ -105,6 +106,24 @@ namespace LibraryManagement.Controllers
 
             TempData["SuccessMessage"] = "Deleted successfully!";
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View(new SearchViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Search(SearchViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Keyword))
+            {
+                model.Categories = _Categorycontext.Categories
+          .Where(c => c.Name.Contains(model.Keyword))
+          .ToList();
+            }
+            return View(model);
+
         }
     }
 }

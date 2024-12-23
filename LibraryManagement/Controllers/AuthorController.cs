@@ -1,7 +1,9 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Models.Context;
+using LibraryManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using LibraryManagement.ViewModels;
 
 namespace LibraryManagement.Controllers
 {
@@ -15,7 +17,7 @@ namespace LibraryManagement.Controllers
         }
         public IActionResult Index()
         {
-            var list= _Authorcontext.Authors.ToList();
+            var list = _Authorcontext.Authors.ToList();
             return View(list);
         }
 
@@ -140,6 +142,23 @@ namespace LibraryManagement.Controllers
             ViewBag.PdfUrl = pdf.PdfFilePath;
             return View();
         }
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View(new SearchViewModel());
+        }
 
+        [HttpPost]
+        public IActionResult Search(SearchViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Keyword))
+            {
+                model.Authors = _Authorcontext.Authors
+           .Where(a => a.FirstName.Contains(model.Keyword) || a.LastName.Contains(model.Keyword))
+           .ToList();
+            }
+            return View(model);
+        }
     }
 }
+
